@@ -37,13 +37,16 @@ abi = compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["abi"]
 
 
 # for connecting to ganache
-w3 = Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))
-chain_id = 1337
-my_address = "0x2d80CFE5D024eDC459749BA81d7184dc8515438F"
+w3 = Web3(
+    Web3.HTTPProvider("https://rinkeby.infura.io/v3/34e77dfbe97443a9b5435282eafde927")
+)
+# 4 is the chain id of rinkeby
+chain_id = 4
+my_address = "0xBd4dCc658BD59F5E73133809C03F2AcD9C4Cd944"
 
 # It is really bad to hardcode private keys in code pushed to github, therefore we set them in Environment variables.
 # private_key = "0x03c9021073093e5e9ffa28068764d460b111063c60ad3b2e711961a167fd4ee8"
-private_key = os.getenv("PRIVATEKEY_GANACHE_FAKEMONEY")
+private_key = os.getenv("PRIVATEKEY_FAKEMONEY")
 
 # Create the contract in Python
 SimpleStorage = w3.eth.contract(abi=abi, bytecode=bytecode)
