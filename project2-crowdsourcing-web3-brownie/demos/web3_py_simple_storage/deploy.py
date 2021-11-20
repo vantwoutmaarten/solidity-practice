@@ -39,8 +39,7 @@ abi = compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["abi"]
 # for connecting to ganache
 w3 = Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))
 chain_id = 1337
-my_address = "0x6C97562a68D2A84A992b588915a4f3C85E3a415d"
-
+my_address = "0x2d80CFE5D024eDC459749BA81d7184dc8515438F"
 
 # It is really bad to hardcode private keys in code pushed to github, therefore we set them in Environment variables.
 # private_key = "0x03c9021073093e5e9ffa28068764d460b111063c60ad3b2e711961a167fd4ee8"
@@ -61,12 +60,40 @@ transaction = contract_transaction.buildTransaction(
 
 signed_txn = w3.eth.account.sign_transaction(transaction, private_key=private_key)
 
+print("Deploying the smart contract")
 # Send this signed transaction
 tx_hash = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
 # This will wait for a few block confirmations to make sure it actually happened.
 tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-
+print("Deployed contract")
 
 # Working with a contract
 # Contract Address
 # Contract ABI
+simple_storage = w3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
+
+# There are two ways to interact with the block chain call or transact
+# Call -> Simulate making the call and getting the return value without making a statechange
+# Transact -> is when you actually make a state change
+# when transicting on a view function nothing happens
+
+print(simple_storage.functions.retrieve().call())
+
+print("starting updating contract")
+store_transaction = simple_storage.functions.store(15).buildTransaction(
+    {
+        "chainId": chain_id,
+        "from": my_address,
+        "nonce": nonce + 1,
+        "gasPrice": 20000000000,
+    }
+)
+
+signed_store_txn = w3.eth.account.sign_transaction(
+    store_transaction, private_key=private_key
+)
+
+send_store_txn = w3.eth.send_raw_transaction(signed_store_txn.rawTransaction)
+tx_receipt = w3.eth.wait_for_transaction_receipt(send_store_txn)
+print("stored value and updated contract")
+print(simple_storage.functions.retrieve().call())
