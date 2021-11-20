@@ -1,10 +1,13 @@
 from solcx import compile_standard, install_solc
 import json
 from web3 import Web3
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 with open("./SimpleStorage.sol", "r") as file:
     simple_storage_file = file.read()
-    # print(simple_storage_file)
 
 # Compile our solidity
 install_solc("0.8.0")
@@ -21,25 +24,49 @@ compiled_sol = compile_standard(
     solc_version="0.8.0",
 )
 
-# print(compiled_sol)
 
 with open("compiled_code.json", "w") as file:
     json.dump(compiled_sol, file)
 
-bytecode = compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["evm"]
-["bytecode"]["object"]
+bytecode = compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["evm"][
+    "bytecode"
+]["object"]
 
 # get ABI
-abi = compiled_sol["contract"]["SimpleStorage.sol"]["SimpleStorage"]
-
-print(abi)
+abi = compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["abi"]
 
 
 # for connecting to ganache
-w3 = Web3(Web3.HTTPProvider("http://127.0.0.1:7545"))
-chain_id = 5777
-myaddress = "0xC0Bf27A5fa06D4d8DDDe025018ac7c53c91C4316"
-private_key = "0x91c14c117c0f646c87d79f65c6010ac1d5fd9059428388a1d675f3d1639cfffc"
+w3 = Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))
+chain_id = 1337
+my_address = "0x6C97562a68D2A84A992b588915a4f3C85E3a415d"
 
+
+# It is really bad to hardcode private keys in code pushed to github, therefore we set them in Environment variables.
+# private_key = "0x03c9021073093e5e9ffa28068764d460b111063c60ad3b2e711961a167fd4ee8"
+private_key = os.getenv("PRIVATEKEY_GANACHE_FAKEMONEY")
+
+# Create the contract in Python
 SimpleStorage = w3.eth.contract(abi=abi, bytecode=bytecode)
-print(SimpleStorage)
+
+# Before making a statechange to the blockchain we first have to build a transaction. Build, Sign, Send a transaction
+nonce = w3.eth.getTransactionCount(my_address)
+
+contract_transaction = SimpleStorage.constructor()
+
+# Before it was not necessary to include the gasprice, but now it is. Here the transaction is builld
+transaction = contract_transaction.buildTransaction(
+    {"chainId": chain_id, "from": my_address, "nonce": nonce, "gasPrice": 20000000000}
+)
+
+signed_txn = w3.eth.account.sign_transaction(transaction, private_key=private_key)
+
+# Send this signed transaction
+tx_hash = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
+# This will wait for a few block confirmations to make sure it actually happened.
+tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+
+
+# Working with a contract
+# Contract Address
+# Contract ABI
