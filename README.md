@@ -7,9 +7,16 @@ This is a remix ethereum project made in Remix, it contains fundable smart contr
 By integrating chainlink price feeds, a minumum deposit amount in USD is integrated by creating conversion functions.
 
 project2-crowdsourcing-contracts-web3-brownie:
+this project contains three demos
 
+1. 
 Almost the same as the previous project in terms of contracts, but this time it is not using the online remix IDE, 
 here in this project, I deployed contracts to local ganache blockchains, deploying to testnets and even mainnets, signing and sending transactions to these nets.
 Also practiced with private key management and the ganache-cli.
 
+2.
+Now I will make the exact same functionality, but now simplified by using brownie.
+
+3.
+Here the contract is made functional with the payable functions and now has the contract functionalities with much less work needed than when developing in remix.
 
