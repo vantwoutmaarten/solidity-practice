@@ -9,8 +9,10 @@ contract FundMe {
 
     address[] public funders;
     address public owner;
+    AggregatorV3Interface public priceFeed;
 
-    constructor() public {
+    constructor(address _priceFeed) public {
+        priceFeed = AggregatorV3Interface(_priceFeed);
         owner = msg.sender;
     }
 
@@ -28,16 +30,12 @@ contract FundMe {
     }
 
     function getVersion() public view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(
-            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
-        );
+
         return priceFeed.version();
     }
 
     function getPrice() public view returns (uint256) {
-        AggregatorV3Interface pricefeed = AggregatorV3Interface(
-            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
-        );
+    
         (, int256 answer, , , ) = pricefeed.latestRoundData();
         return uint256(answer * 10000000000);
     }
