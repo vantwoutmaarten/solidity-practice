@@ -3,8 +3,8 @@ from web3 import Web3
 
 LOCAL_BLOCKCHAIN_ENVIRONMENTS = ["development", "ganache-local"]
 
-DECIMALS = 18
-STARTING_PRICE = 4000
+DECIMALS = 8
+STARTING_PRICE = 4000_000_000_000_0
 
 
 # Using this function this file can be used on local development networks, or on defined persisstent networks such as rinkeby in this case.
