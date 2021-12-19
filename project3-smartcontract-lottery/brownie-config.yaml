@@ -1,6 +1,15 @@
 dependencies:
-  -smartcontractkit/chainlink-brownie-contracts@0.3.0
+  - smartcontractkit/chainlink-brownie-contracts@0.3.0
+  - OpenZeppelin/openzeppelin-contracts@4.4.1
 compiler:
   solc:
     remappings:
       - '@chainlink=smartcontractkit/chainlink-brownie-contracts@0.3.0'
+      - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.4.1'
+
+networks:
+  mainnet-fork:
+    eth_usd_pricefeed: '0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419'
+
+wallets:
+  from_key: ${PRIVATE_KEY}
