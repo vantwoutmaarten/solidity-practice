@@ -1,5 +1,6 @@
+from brownie.network import account
 from brownie.network.main import show_active
-from scripts.helpful_scripts import get_account, get_contract
+from scripts.helpful_scripts import get_account, get_contract, fund_with_link
 from brownie import Lottery, network, config
 
 
@@ -12,12 +13,39 @@ def deploy_lottery():
         config["networks"][network.show_active()]["fee"],
         config["networks"][network.show_active()]["keyhash"],
         {"from": account},
-        publish_source=config["networks"][network.show_active()].get("verify", Fa
-        lse),
+        publish_source=config["networks"][network.show_active()].get("verify", False),
     )
     print("Deployed Lottery!")
 
 
+def start_lottery():
+    account = get_account()
+    lottery = Lottery[-1]
+    starting_tx = lottery.startLottery({"from": account})
+    starting_tx.wait(1)
+    print("The lottery has started boooya!")
+
+
+def enter_lottery():
+    account = get_account()
+    lottery = Lottery[-1]
+    value = lottery.getEntranceFee() + 100_000_000
+    tx = lottery.enter({"from": account, "value": value})
+    tx.wait(1)
+    print("YOu entered the lottery")
+
+
+def end_lottery():
+    account = get_account()
+    lottery = Lottery[-1]
+    # fund the contract with some link because the randomness function from the lottery ending needs this.
+    tx = fund_with_link(lottery)
+    tx.wait(1)
+    end_transaction = lottery.endLottery({"from": account})
+    end_transaction.wait(1)
+
 
 def main():
     deploy_lottery()
+    start_lottery()
+    enter_lottery()

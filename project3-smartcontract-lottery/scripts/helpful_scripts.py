@@ -1,3 +1,4 @@
+from os import link
 from brownie import (
     accounts,
     network,
@@ -68,3 +69,15 @@ def deploy_mocks(decimals=DECIMALS, initial_value=INITIAL_VALUE):
     linktoken = LinkToken.deploy({"from": account})
     VRFCoordinatorMock.deploy(linktoken.address, {"from": account})
     print("Deployed!")
+
+
+def fund_with_link(
+    contract_address, account=None, link_token=None, amount=1000_000_000_000_000_00
+):  # 0.1 Link
+    account = account if account else get_account()
+    link_token = link_token if link_token else get_contract("link_token")
+
+    tx = link_token.transfer(contract_address, amount, {"from": account})
+    tx.wait(1)
+    print("fund contract!")
+    return tx
