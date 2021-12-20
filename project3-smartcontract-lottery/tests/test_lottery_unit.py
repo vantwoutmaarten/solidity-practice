@@ -73,6 +73,8 @@ def test_can_pick_winner_correctly():
     starting_balance_of_account = account.balance()
     balance_of_lottery = lottery.balance()
 
-    assert lottery.recentWinner() == account
-    assert lottery.balance() == 0
-    assert account.balance() == starting_balance_of_account + balance_of_lottery
+    assert lottery.recentWinner() == account  # Because 777 % 3 == 0 thus our account
+    assert lottery.balance() == 0  # the lottery has no money left
+    assert (
+        account.balance() == starting_balance_of_account + balance_of_lottery
+    )  # the lottery has given the money to the account

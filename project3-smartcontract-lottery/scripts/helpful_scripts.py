@@ -23,6 +23,7 @@ def get_account(index=None, id=None):
         or network.show_active() in FORKED_LOCAL_ENVIRONMENTS
     ):
         return accounts[0]
+    print("the account with the private key from the .env")
     return accounts.add(config["wallets"]["from_key"])
 
 
