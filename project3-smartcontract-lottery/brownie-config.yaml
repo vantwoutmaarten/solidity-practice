@@ -8,8 +8,17 @@ compiler:
       - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.4.1'
 
 networks:
+  development:
+    fee: 1000_000_000_000_000_00
+    keyhash: '0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311'
   mainnet-fork:
-    eth_usd_pricefeed: '0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419'
-
+    eth_usd_price_feed: '0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419'
+  rinkeby:
+    vrf_coordinator: '0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B'
+    eth_usd_price_feed: '0x8A753747A1Fa494EC906cE90E9f37563A8AF630e'
+    link_token: '0x01BE23585060835E02B77ef475b0Cc51aA1e0709'
+    fee: 1000_000_000_000_000_00
+    keyhash: '0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311'
+    verify: True   
 wallets:
   from_key: ${PRIVATE_KEY}
