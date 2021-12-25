@@ -40,3 +40,5 @@ How do we want to test this?
 4. Completely custom ERC20 tokens.
 
 This project is a bit smaller, but it shows how to build completely custom ERC-20 tokens in one of the easiest ways possible. Since, these tokens are just smart contracts that include pre specified functions, I will add these functions by using the pre-built contracts from openzeppelin.
+
+5.  In this project, I will work with brownie and make some scripts that interact with defi protocols. First, I will borrow and lend funds on AAVE automatically based on some conditions.
