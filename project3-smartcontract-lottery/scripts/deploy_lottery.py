@@ -34,7 +34,7 @@ def enter_lottery():
     value = lottery.getEntranceFee() + 100_000_000
     tx = lottery.enter({"from": account, "value": value})
     tx.wait(1)
-    print("YOu entered the lottery")
+    print("You entered the lottery!")
 
 
 def end_lottery():
@@ -45,7 +45,7 @@ def end_lottery():
     tx.wait(1)
     end_transaction = lottery.endLottery({"from": account})
     end_transaction.wait(1)
-    time.sleep(60)
+    time.sleep(120)
     print(f"{lottery.recentWinner()} is the new winner!")
 
 
