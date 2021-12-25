@@ -36,3 +36,7 @@ How do we want to test this?
 2. `development` with mocks
 3. `testnet`
    both unit and integration tests are made.
+
+4. Completely custom ERC20 tokens.
+
+This project is a bit smaller, but it shows how to build completely custom ERC-20 tokens in one of the easiest ways possible. Since, these tokens are just smart contracts that include pre specified functions, I will add these functions by using the pre-built contracts from openzeppelin.
