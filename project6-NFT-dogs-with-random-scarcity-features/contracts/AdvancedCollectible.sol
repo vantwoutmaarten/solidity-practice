@@ -11,7 +11,7 @@ contract AdvancedCollectible is ERC721URIStorage, VRFConsumerBase {
     bytes32 public keyHash;
     uint256 public fee;
     enum Breed {
-        PUG,
+        HAPPY_PUG,
         SHIBA_UNI,
         ST_BERNARD
     }
