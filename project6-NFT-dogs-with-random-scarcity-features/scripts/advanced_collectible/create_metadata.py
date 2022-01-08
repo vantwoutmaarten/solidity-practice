@@ -7,7 +7,7 @@ import json
 import os
 
 breed_to_image_uri = {
-    "PUG": "https://ipfs.io/ipfs/QmSfJCQ1cG7vdg4xBUWpA4nbbJFrtW1DUrLEUF1B4SqP3g?filename=happy-pug.png",
+    "HAPPY_PUG": "https://ipfs.io/ipfs/QmSfJCQ1cG7vdg4xBUWpA4nbbJFrtW1DUrLEUF1B4SqP3g?filename=happy-pug.png",
     "SHIBA_INU": "https://ipfs.io/ipfs/QmWtyenX1ZG1KshuC2EvaqLy7gx8X26trYk43vsgWL6fKd?filename=shiba-inu.png",
     "ST_BERNARD": "https://ipfs.io/ipfs/QmdMBp3kNKWoLPvZgCeLXXaqPWS7zsKpoP64dBHtzhAzx8?filename=st-bernard.png",
 }
@@ -35,9 +35,9 @@ def main():
 
             image_file_name = "./img/" + breed.lower().replace("_", "-") + ".png"
 
+            image_uri = breed_to_image_uri[breed]
             if os.getenv("UPLOAD_IPFS") == "true":
                 image_uri = upload_to_ipfs(image_file_name)
-            image_uri = image_uri if image_uri else breed_to_image_uri[breed]
 
             collectible_metadata["image"] = image_uri
 
