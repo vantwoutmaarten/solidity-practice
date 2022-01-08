@@ -24,7 +24,7 @@ project3-smartcontract-lottery:
 2. An admin will choose when the lottery is over (Later this might be a DAO))
 3. The lottery will select a random winner
 
-The randomness comes from a chainlinkNode, therefore the contract was first funded with link.
+The randomness comes from a chainlinkNode, therefore the contract was fir st funded with link.
 And the code includes events, also (off-chain) to do some logging(prints) on the blockchain.
 
 First, the lottery is deployed, we get all the contracts and verify all our own contracts. Which we can interact with on etherscan.
@@ -37,8 +37,19 @@ How do we want to test this?
 3. `testnet`
    both unit and integration tests are made.
 
-4. Completely custom ERC20 tokens.
+4. project 4: Completely custom ERC20 tokens.
 
 This project is a bit smaller, but it shows how to build completely custom ERC-20 tokens in one of the easiest ways possible. Since, these tokens are just smart contracts that include pre specified functions, I will add these functions by using the pre-built contracts from openzeppelin.
 
-5.  In this project, I will work with brownie and make some scripts that interact with defi protocols. First, I will borrow and lend funds on AAVE automatically based on some conditions.
+5. project 5: brownie-AAVE.
+In this project, I will work with brownie and make some scripts that interact with defi protocols. First, I will borrow and lend funds on AAVE automatically based on some conditions.
+
+6. project 6: NFT-dogs-with-random-scarcity-features
+An NFT project, three different breeds of dogs can be minted, which breed of dog is minted depends on a randomnumber generatad by chainlink. The images and the metadata of all the nfts are hosted on ipfs.
+By creating tokenURI's, NFT's are visible on OpenSea. This project contains different scripts to deploy the nft factory, create new random collectibles, setting the metadata and last of all to create the tokenURI's. 
+
+7. 
+Project explowing upgradable smart contracts with different proxy patterns. The three proxy patterns explored are the transparent proxy pattern, the universal upgradable proxy and the diamond proxy pattern. 
+Transparent proxy pattern: Admins can't call implementation contract functions, only functions that govern the updates. 
+Universal upgradable proxy UUPS: AdminOnly upgrade functions are in the implementation contract instead of the proxy contract
+Diamond pattern: allows for multiple implementation contracts.
