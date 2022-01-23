@@ -35,6 +35,15 @@ contract TokenFarm is Ownable{
         dappToken = IERC20(_dappTokenAddress);
     }
 
+    function unStakeTokens(address _token) public {
+        uint256 balance = stakingAmount[msg.sender][_token];
+        require(balance > 0, "staking balance cannt be zero");
+        IERC20(_token).transfer(msg.sender, balance);
+        stakingAmount[msg.sender][_token] = 0;
+        uniqueTokensStaked[msg.sender] = uniqueTokensStaked[msg.sender] - 1;
+    }
+
+
     function setPriceFeedContract(address _token, address _pricefeed) public onlyOwner {
         tokenPriceFeedMapping[_token] = _pricefeed;
     }
