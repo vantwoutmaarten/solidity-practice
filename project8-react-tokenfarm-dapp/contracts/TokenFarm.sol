@@ -97,16 +97,14 @@ contract TokenFarm is Ownable{
         if (uniqueTokensStaked[msg.sender] == 1){
             stakers.push(msg.sender);
         }
-        stakingAmount[_token][msg.sender] = stakingAmount[_token][msg.sender] + _amount;
-
+        stakingAmount[msg.sender][_token] = stakingAmount[msg.sender][_token] + _amount;
     }
 
     function updateUniqueTokensStaked(address _user, address _token) internal {
-        if (stakingAmount[_token][_user] <= 0){
+        if (stakingAmount[_user][_token] <= 0){
             uniqueTokensStaked[_user] = uniqueTokensStaked[_user] + 1;
         }
     }
-
 
     function tokenIsAllowed(address _token) public returns (bool) {
         for ( uint256 addAllowedTokensIndex=0; addAllowedTokensIndex < allowedTokens.length; addAllowedTokensIndex++){

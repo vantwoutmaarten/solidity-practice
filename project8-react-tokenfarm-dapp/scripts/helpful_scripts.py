@@ -5,6 +5,8 @@ LOCAL_BLOCKCHAIN_ENVIRONMENTS = ["development", "ganache", "mainnet-fork"]
 NON_FORKED_LOCAL_BLOCKCHAINS = ["mainnet-fork"]
 OPENSEA_URL = "https://testnets.opensea.io/assets/{}/{}"
 
+INITIAL_PRICE_FEED_VALUE = Web3.toWei(2000, "ether")
+DECIMALS = 18
 
 def get_account(index=None, id=None):
     if index:
@@ -59,7 +61,9 @@ def deploy_mocks():
     account = get_account()
 
     print("Deploying Mock Price Feed...")
-    mock_price_feed = MockV3Aggregator.deploy(
+    decimals = DECIMALS
+    initialAnswer = INITIAL_PRICE_FEED_VALUE
+    mock_price_feed = MockV3Aggregator.deploy(decimals, initialAnswer,
         {"from": account}
     )
     print(f"Deployed to {mock_price_feed.address}")

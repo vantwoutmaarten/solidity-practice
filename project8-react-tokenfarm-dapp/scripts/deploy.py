@@ -3,7 +3,7 @@ from web3 import Web3
 
 from brownie import DappToken, TokenFarm, network, config
 
-KEPT_BALANCE = Web3.toWei(100, "ether")
+KEPT_BALANCE = Web3.toWei(10, "ether")
 
 def deploy_token_farm_and_dapp_token():
     account = get_account()
@@ -11,10 +11,12 @@ def deploy_token_farm_and_dapp_token():
     token_farm = TokenFarm.deploy(dapp_token.address, {"from": account})
 
     tx = dapp_token.transfer(token_farm.address, dapp_token.totalSupply() - KEPT_BALANCE, {"from": account})
-    tx.wait()
+    tx.wait(1)
 
     weth_token = get_contract("weth_token")
+
     fau_token = get_contract("fau_token")
+    
     dict_of_allowed_tokens = {
         dapp_token: get_contract("dai_usd_price_feed"),
         fau_token:  get_contract("dai_usd_price_feed"),
@@ -22,6 +24,7 @@ def deploy_token_farm_and_dapp_token():
     }
 
     add_allowed_tokens(token_farm, dict_of_allowed_tokens, account)
+
     return token_farm, dapp_token
 
     
@@ -33,9 +36,6 @@ def add_allowed_tokens(token_farm, dict_of_allowed_tokens, account):
         setFeed_tx = token_farm.setPriceFeedContract(token.address, dict_of_allowed_tokens[token], {"from": account})
         setFeed_tx.wait(1)
     return token_farm
-
-# dapp_token, weth_token, fau_token
-def add_allowed_tokens(token_farm, dict_of_allowed_tokens, account):
 
 
 def main():
