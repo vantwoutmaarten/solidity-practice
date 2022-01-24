@@ -5,16 +5,15 @@
 // getEthValue
 
 //SPDX-Licence-Identifier: MIT
-pragma solidity ^0.8.0;'
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-import "@chainlink/contracts/src/interfaces/AggregatorV3Interface.sol";
 
 
 contract TokenFarm is Ownable{
-    // mapping token adress --> staker address -> amount
+    // mapping token adress --> staker address -> amount 
     mapping(address => mapping(address => uint256)) public stakingAmount;
     mapping(address => uint256) public uniqueTokensStaked;
 
@@ -31,7 +30,7 @@ contract TokenFarm is Ownable{
     // addAllowedTokens
     // getEthValue
 
-    constructor(address _dappTokenAddress) public {
+    constructor(address _dappTokenAddress) {
         dappToken = IERC20(_dappTokenAddress);
     }
 
@@ -53,7 +52,7 @@ contract TokenFarm is Ownable{
         for(uint256 stakersIndex = 0; stakersIndex < stakers.length; stakersIndex++){
             address recipient = stakers[stakersIndex];
             uint256 userTotalValue = getUserTotalValue(recipient);
-            dappToken.transfer(recipient, userTotalValue)
+            dappToken.transfer(recipient, userTotalValue);
         }
     }
 
@@ -72,9 +71,9 @@ contract TokenFarm is Ownable{
             return 0;
         }
         (uint256 priceOfToken, uint256 decimals) = getTokenValue(_token);
-        amountoftoken = stakingAmount[_user][_token];
+        uint256 amountoftoken = stakingAmount[_user][_token];
 
-        return (stakingAmount[_user][_token] * price / (10**decimals));
+        return (stakingAmount[_user][_token] * priceOfToken / (10**decimals));
 
     }
 
@@ -98,12 +97,12 @@ contract TokenFarm is Ownable{
         if (uniqueTokensStaked[msg.sender] == 1){
             stakers.push(msg.sender);
         }
-        stakingBalance[_token][msg.sender] = stakingBalance[_token][msg.sender] + _amount;
+        stakingAmount[_token][msg.sender] = stakingAmount[_token][msg.sender] + _amount;
 
     }
 
-    function updateUniqueTokensStaked(address user, address token) internal {
-        if (stakingBalance[_token][_user] <= 0){
+    function updateUniqueTokensStaked(address _user, address _token) internal {
+        if (stakingAmount[_token][_user] <= 0){
             uniqueTokensStaked[_user] = uniqueTokensStaked[_user] + 1;
         }
     }
@@ -120,11 +119,6 @@ contract TokenFarm is Ownable{
 
     function addAllowedTokens(address _token) public onlyOwner {
         allowedTokens.push(_token);
-
-    }
-
-    function issueTokens() public onlyOwner {
-
     }
 
 }
