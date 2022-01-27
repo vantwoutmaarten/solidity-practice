@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "ethers": "^5.5.3"
   }
 }

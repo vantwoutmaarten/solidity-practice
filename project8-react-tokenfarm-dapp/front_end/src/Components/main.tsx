@@ -1,8 +1,20 @@
+/* eslint-disable spaced-comment */
+/// <reference types="react-scripts" /
 import { useEthers } from "@usedapp/core";
 import helperConfig from "../helper-config.json";
 import networkMapping from "../chain-info/deployments/map.json";
 import { constants } from "ethers";
 import brownieConfig from "../brownie-config.json";
+import dapp from "../dapp.png";
+import dai from "../dai.png";
+import weth from "../eth.png";
+import { YourWallet } from "./yourWallet";
+
+export type Token = {
+  image: string;
+  address: string;
+  name: string;
+};
 
 export const Main = () => {
   // show token values from the wallet
@@ -28,5 +40,23 @@ export const Main = () => {
     ? networkMapping[String(chainId)]["TokenFarm"][0]
     : constants.AddressZero;
 
-  return <div>Main</div>;
+  const supportedTokens: Array<Token> = [
+    {
+      image: dapp,
+      address: dappTokenAddress,
+      name: "DAPP",
+    },
+    {
+      image: dai,
+      address: fauTokenAddress,
+      name: "DAI",
+    },
+    {
+      image: weth,
+      address: wethTokenAddress,
+      name: "WETH",
+    },
+  ];
+
+  return <YourWallet supportedTokens={supportedTokens} />;
 };
