@@ -1,5 +1,11 @@
 import React from "react";
-import { DAppProvider, ChainId } from "@usedapp/core";
+import {
+  DAppProvider,
+  Kovan,
+  Rinkeby,
+  Localhost,
+  useNotifications,
+} from "@usedapp/core";
 import { Header } from "./Components/Header";
 import { Container } from "@material-ui/core";
 import { Main } from "./Components/Main";
@@ -8,7 +14,11 @@ function App() {
   return (
     <DAppProvider
       config={{
-        supportedChains: [ChainId.Kovan, ChainId.Rinkeby, 1337],
+        networks: [Kovan, Rinkeby, Localhost],
+        notifications: {
+          expirationPeriod: 1000,
+          checkInterval: 1000,
+        },
       }}
     >
       <div className="App">
