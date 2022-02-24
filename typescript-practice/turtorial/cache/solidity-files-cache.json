@@ -88,8 +88,8 @@
       ]
     },
     "/Users/maartenvantwout/Desktop/solidity-practice/typescript-practice/turtorial/contracts/BossNFT.sol": {
-      "lastModificationDate": 1645693596647,
-      "contentHash": "99566c0a12bb87a6ecf3085138333b35",
+      "lastModificationDate": 1645709744732,
+      "contentHash": "b818bfdf078b605777d16e9fcb6b9131",
       "sourceName": "contracts/BossNFT.sol",
       "solcConfig": {
         "version": "0.8.12",
@@ -123,7 +123,10 @@
       },
       "imports": [
         "hardhat/console.sol",
-        "@openzeppelin/contracts/token/ERC721/ERC721.sol"
+        "@openzeppelin/contracts/token/ERC721/ERC721.sol",
+        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
         "^0.8.12"
@@ -133,8 +136,8 @@
       ]
     },
     "/Users/maartenvantwout/Desktop/solidity-practice/typescript-practice/turtorial/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1645693431693,
-      "contentHash": "49295810dc45f300e5f84b4b50d88a59",
+      "lastModificationDate": 1645707738572,
+      "contentHash": "b5181293d30adc83cbd52fd6b6adaf5e",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
         "version": "0.8.12",
@@ -176,7 +179,7 @@
         "../../utils/introspection/ERC165.sol"
       ],
       "versionPragmas": [
-        "^0.8.0"
+        "^0.8.12"
       ],
       "artifacts": [
         "ERC721"
@@ -522,6 +525,136 @@
       ],
       "artifacts": [
         "IERC165"
+      ]
+    },
+    "/Users/maartenvantwout/Desktop/solidity-practice/typescript-practice/turtorial/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol": {
+      "lastModificationDate": 1645693431694,
+      "contentHash": "580a443491d9d70eb064b0130fc3cd01",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../ERC721.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC721URIStorage"
+      ]
+    },
+    "/Users/maartenvantwout/Desktop/solidity-practice/typescript-practice/turtorial/node_modules/@openzeppelin/contracts/utils/Counters.sol": {
+      "lastModificationDate": 1645693431688,
+      "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
+      "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Counters"
+      ]
+    },
+    "/Users/maartenvantwout/Desktop/solidity-practice/typescript-practice/turtorial/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1645693431707,
+      "contentHash": "8398972af73b4e9e5ff3b31cad86234f",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Ownable"
       ]
     }
   }

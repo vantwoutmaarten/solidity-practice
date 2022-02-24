@@ -17,7 +17,7 @@ const config: HardhatUserConfig = {
     hardhat: {},
     rinkeby: {
       url: `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`,
-      accounts: [process.env.RINKEBY_PRIVATE_KEY? process.env.RINKEBY_PRIVATE_KEY : "0x000"],
+      accounts: [process.env.PRIVATE_KEY? process.env.PRIVATE_KEY : "0x000"],
     },
   },
   etherscan: {
