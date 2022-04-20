@@ -8,8 +8,6 @@ async function main() {
     await bossNFT.deployed();
 
     console.log("Deployed BossNFT to ", bossNFT.address);
-
-    
 }
 
 main()

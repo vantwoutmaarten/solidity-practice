@@ -8,20 +8,24 @@ const contractInterface = contract.abi;
 
 let provider = ethers.provider;
 
-// const tokenURI = "https://ipfs.io/ipfs/QmUFbUjAifv9GwJo7ufTB5sccnrNqELhDMafoEmZdPPng7";
 const sample_token_uri = "https://ipfs.io/ipfs/Qmd9MCGtdVz2miNumBHDbvj8bigSgTwnr4SbyH6DNnpWdt?filename=0-PUG.json"
 
 const privateKey = `0x${process.env.PRIVATE_KEY}`;
 const wallet = new ethers.Wallet(privateKey, provider);
-// wallet.provider = provider;
-console.log("wallet provider: ", wallet.provider)
 const signer = wallet.connect(provider);
+const contractAddress = process.env.CONTRACT_ADDRESS!;
+
 
 const nft = new ethers.Contract(
-    process.env.CONTRACT_ADDRESS? process.env.CONTRACT_ADDRESS : "0x000",
+    contractAddress,
     contractInterface,
     signer
 );
+
+if (!contractAddress) {
+    throw new Error("Please set your CONTRACT_ADDRESS in a .env file");
+}
+
 
 const main = () => {
     console.log("Waiting 5 blocks for confirmation...");
