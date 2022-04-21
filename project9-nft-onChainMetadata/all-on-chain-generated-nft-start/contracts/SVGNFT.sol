@@ -11,20 +11,23 @@ import "base64-sol/base64.sol";
 contract SVGNFT is ERC721URIStorage {
     uint256 public tokenCounter;
 
+    event CreatedSVGNFT(uint256 indexed tokenId, string tokenURI);
+
     constructor() ERC721("SVG NFT", "svgNFT") {
         tokenCounter = 0;
     }
 
-    function create(string memory svg) public {
+    function create(string memory _svg) public {
         // imageURI
-        string memory imageURI = svgToImageURI(svg);
+        string memory imageURI = svgToImageURI(_svg);
         // tokenURI
         string memory tokenURI = formatTokenURI(imageURI);
-
+        emit CreatedSVGNFT(tokenCounter, tokenURI);
         _safeMint(msg.sender, tokenCounter);
+        
     }
 
-    function formatTokenURI(string memory imageURI) public pure return (string memory) {
+    function formatTokenURI(string memory _imageURI) public pure return (string memory) {
     string memory tokenURL = string.concat("data:application/json;base64,",
         Base64.encode(
         string memory json =  bytes(
@@ -32,19 +35,19 @@ contract SVGNFT is ERC721URIStorage {
                 '{"name":"SVG NFT", 
                 "description":"An NFT based SVG!",
                 "attributes":"",
-                "image":,"', imageURI, '"}')
+                "image":,"', _imageURI, '"}')
         )));
         return tokenURI;
     }
 
-    function svgToImageURI(string memory svg)
+    function svgToImageURI(string memory _svg)
         public
         pure
         returns (string memory)
     {
         string memory baseURL = "data:image/svg+xml;base64,";
         string memory svgBase64Encoded = Base64.encode(
-            bytes(string(abi.encodePacked(svg)))
+            bytes(string(abi.encodePacked(_svg)))
         );
         string memory imageURI = string.concat(baseURL, svgBase64Encoded);
         return imageURI;
