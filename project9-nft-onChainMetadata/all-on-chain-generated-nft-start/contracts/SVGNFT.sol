@@ -22,21 +22,32 @@ contract SVGNFT is ERC721URIStorage {
         string memory imageURI = svgToImageURI(_svg);
         // tokenURI
         string memory tokenURI = formatTokenURI(imageURI);
+
         emit CreatedSVGNFT(tokenCounter, tokenURI);
         _safeMint(msg.sender, tokenCounter);
-        
+        _setTokenURI(tokenCounter, tokenURI);
     }
 
-    function formatTokenURI(string memory _imageURI) public pure return (string memory) {
-    string memory tokenURL = string.concat("data:application/json;base64,",
-        Base64.encode(
-        string memory json =  bytes(
-            string.concat(
-                '{"name":"SVG NFT", 
-                "description":"An NFT based SVG!",
-                "attributes":"",
-                "image":,"', _imageURI, '"}')
-        )));
+    function formatTokenURI(string memory _imageURI)
+        public
+        pure
+        returns (string memory)
+    {
+        string memory tokenURI = string.concat(
+            "data:application/json;base64,",
+            Base64.encode(
+                bytes(
+                    string.concat(
+                        '{"name":"SVG NFT",',
+                        '"description":"An NFT based SVG!",',
+                        '"attributes":"",',
+                        '"image":"',
+                        _imageURI,
+                        '"}'
+                    )
+                )
+            )
+        );
         return tokenURI;
     }
 
