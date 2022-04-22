@@ -26,6 +26,8 @@ contract SVGNFT is ERC721URIStorage {
         emit CreatedSVGNFT(tokenCounter, tokenURI);
         _safeMint(msg.sender, tokenCounter);
         _setTokenURI(tokenCounter, tokenURI);
+
+        tokenCounter += 1;
     }
 
     function formatTokenURI(string memory _imageURI)

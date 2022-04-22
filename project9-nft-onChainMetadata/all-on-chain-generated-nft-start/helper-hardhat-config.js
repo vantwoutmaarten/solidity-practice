@@ -4,6 +4,9 @@ const networkConfig = {
     },
     4 : {
         name: 'rinkeby'
+    },
+    80001: {
+        name: 'polygon_mumbai'
     }
 }
 
