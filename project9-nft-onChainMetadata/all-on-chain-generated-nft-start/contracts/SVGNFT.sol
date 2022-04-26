@@ -8,6 +8,8 @@ pragma solidity 0.8.13;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "base64-sol/base64.sol";
 
+// import "hardhat/console.sol";
+
 contract SVGNFT is ERC721URIStorage {
     uint256 public tokenCounter;
 
@@ -18,16 +20,24 @@ contract SVGNFT is ERC721URIStorage {
     }
 
     function create(string memory _svg) public {
+        // console.log("tokenCounter", tokenCounter);
+
         // imageURI
         string memory imageURI = svgToImageURI(_svg);
+        // console.log("created_image uri");
         // tokenURI
         string memory tokenURI = formatTokenURI(imageURI);
+        // console.log("created token uri");
 
         emit CreatedSVGNFT(tokenCounter, tokenURI);
         _safeMint(msg.sender, tokenCounter);
+        // console.log("minted new token");
+
         _setTokenURI(tokenCounter, tokenURI);
+        // console.log("set net token uri");
 
         tokenCounter += 1;
+        // console.log("increased token counter");
     }
 
     function formatTokenURI(string memory _imageURI)

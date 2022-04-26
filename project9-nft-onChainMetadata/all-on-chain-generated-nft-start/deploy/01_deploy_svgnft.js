@@ -12,7 +12,7 @@ module.exports = async({
     const chainId = await getChainId()
 
     log("---------------------------------------")
-    const SVGNFT = await deploy("SVGNFT", {
+    const SVGNFT = await deploy("NFT_StorageOpt", {
         from: deployer,
         log: true
     })
@@ -20,7 +20,7 @@ module.exports = async({
     let filepath = "./img/triangle.svg";
     let svg = fs.readFileSync(filepath, { encoding: "utf8" });
 
-    const svgNFTContract = await ethers.getContractFactory("SVGNFT");
+    const svgNFTContract = await ethers.getContractFactory("NFT_StorageOpt");
     const accounts = await ethers.getSigners();
     const signer = accounts[0];
 
@@ -33,7 +33,10 @@ module.exports = async({
     log(`Verify with \n npx hardhat verify --network ${network.name} ${svgNFT.address}`)
 
     let transactionResponse = await svgNFT.create(svg);
+    console.log("transaction send out")
+    console.log("transactionResponse: ", transactionResponse);
     let receipt = await transactionResponse.wait(1);
     log(`You've made an NFT!`)
+
     log(`You can view the tokenURI here ${await svgNFT.tokenURI(0)}`);
 }
