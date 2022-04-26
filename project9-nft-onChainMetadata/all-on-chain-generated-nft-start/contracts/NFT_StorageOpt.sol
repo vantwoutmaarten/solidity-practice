@@ -93,11 +93,11 @@ contract NFT_StorageOpt is ERC721URIStorage, Ownable {
         // return super.tokenURI(tokenId);
     }
 
-    // function _burn(uint256 tokenId) internal override {
-    //     super._burn(tokenId);
+    function _burn(uint256 tokenId) internal override {
+        super._burn(tokenId);
 
-    //     if (bytes(idToImageURI[tokenId]).length != 0) {
-    //         delete idToImageURI[tokenId];
-    //     }
-    // }
+        if (bytes(idToImageURI[tokenId]).length != 0) {
+            delete idToImageURI[tokenId];
+        }
+    }
 }
