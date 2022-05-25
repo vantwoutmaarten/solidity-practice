@@ -1,0 +1,8 @@
+notes:
+
+tokendistribution must read from NFT with locked tokens before calculating claimable tokens.
+
+and NFT must also look at private sale to see how much you can claim.
+
+at NFT claim/mint moment, there the question arises only once if you want to participate in the locking.
+
